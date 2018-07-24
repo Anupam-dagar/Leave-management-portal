@@ -25,7 +25,7 @@ SECRET_KEY = '+p279_e$)b00m*onbejdvem+(b#@rpcdb&o=-5t2ixsc39z+9s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'leave.User'
 
