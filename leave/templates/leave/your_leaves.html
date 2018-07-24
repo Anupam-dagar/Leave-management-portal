@@ -1,0 +1,71 @@
+{% extends "leave/base.html" %} {% load staticfiles %} {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.username}}</h4>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.designation}}-{{request.user.department}}</a>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>Available Leaves: {{request.user.available_leaves}}</h4>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="{% url 'home' %}">Overview
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'your_leaves' %}">Your Leaves</a>
+                </li>
+                <li>
+                    <a href="{% url 'submit_leave' %}">Submit Leave</a>
+                </li>
+                <li>
+                    <a href="{% url 'department_leaves' %}">Department Leaves</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Your Leaves</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sr No.</th>
+                            <th>From Date</th>
+                            <th>Till Date</th>
+                            <th>Purpose</th>
+                            <th>Noted To</th>
+                            <th>Sanctioned By</th>
+                            <th>Approval Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for leave in leaves %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ leave.from_date }}</td>
+                            <td>{{ leave.to_date }}</td>
+                            <td>{{ leave.purpose }}</td>
+                            <td>{{ leave.noted_to }}</td>
+                            <td>{{ leave.sanctioned_by }}</td>
+                            {% if leave.approval == False and leave.sanctioned_by == None %}
+                            <td>Approval Pending</td>
+                            {% elif leave.approval == False %}
+                            <td>Not Approved</td>
+                            {% else %}
+                            <td>Approved</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

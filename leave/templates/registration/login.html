@@ -1,0 +1,35 @@
+{% extends "leave/base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block extend_head %}
+{% load widget_tweaks %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+
+  <form method="post" class="form-signin">
+    {% csrf_token %}
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    {% render_field form.username class="form-control" placeholder="Username" autofocus="true" %}
+    <label for="inputPassword" class="sr-only">Password</label>
+    {% render_field form.password class="form-control" placeholder="Password" %}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+
+</div>
+
+
+
+<!--
+<form method="post" action=".">
+  {% csrf_token %} 
+  {{ form.as_p }}
+
+  <input type="submit" value="{% trans 'Log in' %}" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p> -->
+{% endblock %}

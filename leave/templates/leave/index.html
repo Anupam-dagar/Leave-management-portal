@@ -1,0 +1,40 @@
+{% extends "leave/base.html" %} {% load staticfiles %}{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.username}}</h4>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.designation}}-{{request.user.department}}</a>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>Available Leaves: {{request.user.available_leaves}}</h4>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li class="active">
+                    <a href="{% url 'home' %}">Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'your_leaves' %}">Your Leaves</a>
+                </li>
+                <li>
+                    <a href="{% url 'submit_leave' %}">Submit Leave</a>
+                </li>
+                <li>
+                    <a href="{% url 'department_leaves' %}">Department Leaves</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+                <p class="lead">You have {{request.user.available_leaves}} available leaves.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

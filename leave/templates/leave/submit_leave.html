@@ -1,0 +1,69 @@
+{% extends "leave/base.html" %} {% load staticfiles %} {% load widget_tweaks %} {% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.username}}</h4>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>{{request.user.designation}}-{{request.user.department}}</a>
+                </li>
+                <li style="padding-right: 20px;padding-left: 20px;">
+                    <h4>Available Leaves: {{request.user.available_leaves}}</h4>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="{% url 'home' %}">Overview
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'your_leaves' %}">Your Leaves</a>
+                </li>
+                <li class="active">
+                    <a href="{% url 'submit_leave' %}">Submit Leave</a>
+                </li>
+                <li>
+                    <a href="{% url 'department_leaves' %}">Department Leaves</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Submit Leave</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="notedto">Noted To</label>
+                    {% render_field form.noted_to class="form-control" id="notedto" placeholder="Leave noted to" autofocus="true" %}
+                </div>
+                <div class="form-group">
+                    <label for="fromdate">From Date</label>
+                    {% render_field form.from_date class="form-control" id="fromdate" placeholder="From Date" %}
+                </div>
+                <div class="form-group">
+                    <label for="todate">To Date</label>
+                    {% render_field form.to_date class="form-control" id="todate" placeholder="To Date" %}
+                </div>
+                <div class="form-group">
+                    <label for="purpose">Purpose</label>
+                    {% render_field form.purpose class="form-control" id="purpose" placeholder="Purpose" %}
+                </div>
+                <button type="submit" class="btn btn-default">Submit Leave</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fromdate').datepicker({ "format": "yyyy-mm-dd" }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+    });
+    $(document).ready(function () {
+        $('#todate').datepicker({ "format": "yyyy-mm-dd" }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
+        });
+    });
+</script> {% endblock %}
