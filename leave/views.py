@@ -63,11 +63,14 @@ def change_approval(request):
     employee_pk = int(request.GET.get('employee'))
     employee = User.objects.get(pk = employee_pk)
     myobject = Leave.objects.filter(pk=leavepk)
+    import pdb; pdb.set_trace()
     if myobject.exists():
-        if str(myobject[0].approval) != approval_val:
-            print("inside")
+        if approval_val == 'True':
             myobject.update(approval=approval_val, sanctioned_by=sanctioned_byuser)
             employee.available_leaves=employee.available_leaves-1
+            employee.save()
+        if approval_val == 'False':
+            myobject.update(approval=approval_val, sanctioned_by=sanctioned_byuser)
             employee.save()
         boolval = 'True'
     else:
