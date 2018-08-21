@@ -1,11 +1,61 @@
-{% extends "leave/base.html" %}
-{% load i18n %}
+{% extends "leave/base.html" %} {% load i18n %} {% load staticfiles %} {% block extend_head %} {% load widget_tweaks %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}"> {% endblock %} {% block content %}
+<div class="container">
 
-{% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
+  <form method="post" class="">
+    {% csrf_token %}
+    <h2 class="form-signin-heading">Register User</h2>
 
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label for="inputUsername" class="sr-only">Username</label>
+        {% render_field form.username id="inputUsername" class="form-control" placeholder="Username" autofocus="true" %}
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="inputFirstName" class="sr-only">First Name</label>
+        {% render_field form.first_name id="inputFirstName" class="form-control" placeholder="First Name" %}
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="inputLastName" class="sr-only">Last Name</label>
+        {% render_field form.last_name id="inputLastName" class="form-control" placeholder="Last Name" %}
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="inputEmail" class="sr-only">Email Address</label>
+        {% render_field form.email id="inputEmail" class="form-control" placeholder="Email Address" %}
+      </div>
+      <div class="col-md-4 form-group">
+        <h4>Department</h4>
+        {% render_field form.department id="inputDepartment" class="form-control" %}
+      </div>
+      <div class="col-md-4 form-group">
+        <h4>Designation</h4>
+        {% render_field form.designation id="inputDesignation" class="form-control" %}
+      </div>
+      <div class="col-md-4 form-group">
+        <h4>Power Station</h4>
+        {% render_field form.power_station id="inputPowerStation" class="form-control" %}
+      </div>
+      <div class="col-md-12 form-group">
+        <h4>Password Instructions</h4> 
+        <ul> 
+          <li>Your password can't be too similar to your other personal information.</li>
+          <li>Your password must contain at least 8 characters.</li>
+          <li>Your password can't be a commonly used password.</li>
+          <li>Your password can't be entirely numeric.</li>
+        </ul>
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="inputPassword1" class="sr-only">Password</label>
+        {% render_field form.password1 id="inputPassword1" class="form-control" placeholder="Enter Password" %}
+      </div>
+      <div class="col-md-6 form-group">
+        <label for="inputPassword2" class="sr-only">Confirm Password</label>
+        {% render_field form.password2 id="inputPassword2" class="form-control" placeholder="Confirm Password" %}
+      </div>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+  </form>
+
+</div>
 {% endblock %}
