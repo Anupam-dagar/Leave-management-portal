@@ -21,8 +21,9 @@ class User(AbstractUser):
         ("M&T", "M&T"),
         ("MM&Store", "MM&Store"),
         ("Civil", "Civil"),
+        ("CE", "CE"),
     )
-    department = models.CharField(max_length=200, blank=False, null=False, choices=DEPARTMENT_CHOICES)
+    department = models.CharField(max_length=200, blank=False, null=False, choices=DEPARTMENT_CHOICES, default="")
     available_leaves = models.IntegerField(default=15)
     designation = models.CharField(max_length=200, blank=False, null=False, choices=DESIGNATION_CHOICES)
     power_station = models.CharField(max_length=200, blank=False, null=False, choices=STATION_CHOICES, default="")
