@@ -33,7 +33,7 @@ def submit_leave(request):
                 send_mail(mail_subject, mail_message, 'HPGCL Leave Portal <hpgcl@leaveportal.com>', [noted_to.email], fail_silently=False)                
                 return redirect('/')
         else:
-            form = LeaveForm
+            form = LeaveForm(request.user)
         return render(request, 'leave/submit_leave.html', {'form': form})
 
 

@@ -29,10 +29,10 @@ class User(AbstractUser):
     power_station = models.CharField(max_length=200, blank=False, null=False, choices=STATION_CHOICES, default="")
 
     def __str__(self):
-        return self.first_name + ' - ' + self.department
+        return self.get_full_name() + ' - ' + self.designation + ' - ' + self.department
 
     def __unicode__(self):
-        return self.first_name + ' - ' + self.department
+        return self.get_full_name() + ' - ' + self.designation + ' - ' + self.department
 
 class Leave(models.Model):
     employee = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
