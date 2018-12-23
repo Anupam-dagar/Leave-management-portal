@@ -23,4 +23,4 @@ class LeaveForm(forms.ModelForm):
 
     class Meta:
         model = Leave
-        fields = ('noted_by', 'from_date', 'to_date', 'purpose', 'noted_to')
+        fields = ('noted_by', 'from_date', 'to_date', 'purpose', 'noted_to', 'leave_image')

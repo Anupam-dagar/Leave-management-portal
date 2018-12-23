@@ -1,4 +1,4 @@
-{% extends "leave/base.html" %} {% load staticfiles %} {% load widget_tweaks %} 
+{% extends "leave/base.html" %} {% load cloudinary %} {% load staticfiles %} {% load widget_tweaks %} 
 {% block title %} Submit Leave {% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -33,11 +33,11 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Submit Leave</h1>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="notedto">Noted By</label>
-                    {% render_field form.noted_by class="form-control" id="notedto" placeholder="Leave noted to" autofocus="true" %}
+                    {% render_field form.noted_by class="form-control" id="notedby" placeholder="Leave noted to" autofocus="true" %}
                 </div>
                 <div class="form-group">
                     <label for="notedto">Noted To</label>
@@ -54,6 +54,10 @@
                 <div class="form-group">
                     <label for="purpose">Purpose</label>
                     {% render_field form.purpose class="form-control" id="purpose" placeholder="Purpose" %}
+                </div>
+                <div class="form-group">
+                    <label for="leave_image">Attach Leave</label>
+                    {% render_field form.leave_image class="form-control" id="leave_image" %}
                 </div>
                 <button type="submit" class="btn btn-default">Submit Leave</button>
             </form>

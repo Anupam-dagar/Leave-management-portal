@@ -45,6 +45,7 @@
                             <th>Noted By</th>
                             <th>Sanctioned By</th>
                             <th>Approval Status</th>
+                            <th>Download Leave</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +65,7 @@
                             {% else %}
                             <td>Approved</td>
                             {% endif %}
+                            <td><a href="{{ leave.leave_image.build_url }}">Download</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

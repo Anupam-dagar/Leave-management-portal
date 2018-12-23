@@ -18,7 +18,7 @@ def submit_leave(request):
     if request.user.is_authenticated():
         if request.method == "POST":
             noted_by = User.objects.get(pk=request.POST.get('noted_by'))
-            form = LeaveForm(request.user, request.method, data=request.POST)
+            form = LeaveForm(request.user, request.method, data=request.POST, files=request.FILES)
             if form.is_valid():
                 form_data = form.save(commit=False)
                 form_data.employee = request.user

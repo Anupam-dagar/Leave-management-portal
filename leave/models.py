@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 
 class User(AbstractUser):
     DESIGNATION_CHOICES = (
@@ -43,7 +44,8 @@ class Leave(models.Model):
     purpose = models.CharField(max_length=1200, blank=False, null=False)
     approval = models.BooleanField(default=False, blank=False, null=False)
     noted_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='%(class)s_notedto', blank=True, null=True)
-
+    leave_image = CloudinaryField('image')
+    
     def __str__(self):
         return self.employee.first_name + ': ' + str(self.from_date) + ' - ' + str(self.to_date)
 
