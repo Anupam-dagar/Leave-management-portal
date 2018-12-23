@@ -36,6 +36,10 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
+                    <label for="notedto">Noted By</label>
+                    {% render_field form.noted_by class="form-control" id="notedto" placeholder="Leave noted to" autofocus="true" %}
+                </div>
+                <div class="form-group">
                     <label for="notedto">Noted To</label>
                     {% render_field form.noted_to class="form-control" id="notedto" placeholder="Leave noted to" autofocus="true" %}
                 </div>
