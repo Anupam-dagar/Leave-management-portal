@@ -43,9 +43,8 @@
                             <th>From Date</th>
                             <th>Till Date</th>
                             <th>Purpose</th>
-                            <th>Noted To</th>
                             <th>Noted By</th>
-                            <th>Sanctioned By</th>
+                            <th>Approved By</th>
                             <th>Approval Status</th>
                             <th>Download Leave</th>
                         </tr>
@@ -61,7 +60,6 @@
                             <td>{{ leave.purpose }}</td>
                             <td>{{ leave.noted_to }}</td>
                             <td>{{ leave.noted_by }}</td>
-                            <td>{{ leave.sanctioned_by }}</td>
                             {% if leave.approval == False and leave.sanctioned_by == None %}
                             <td>Approval Pending</td>
                             {% elif leave.approval == False %}

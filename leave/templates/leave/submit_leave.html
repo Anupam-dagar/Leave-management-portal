@@ -36,11 +36,11 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="notedto">Noted By</label>
+                    <label for="notedto">Approved By</label>
                     {% render_field form.noted_by class="form-control" id="notedby" placeholder="Leave noted to" autofocus="true" %}
                 </div>
                 <div class="form-group">
-                    <label for="notedto">Noted To</label>
+                    <label for="notedto">Noted By</label>
                     {% render_field form.noted_to class="form-control" id="notedto" placeholder="Leave noted to" autofocus="true" %}
                 </div>
                 <div class="form-group">
