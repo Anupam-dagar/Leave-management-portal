@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .forms import LeaveForm
 from .models import Leave, User
-# Create your views here.
 from django.core.mail import send_mail
+import tablib
 
 
 def home(request):
@@ -98,3 +98,35 @@ def change_approval(request):
         'valdb': 'True'
     }
     return JsonResponse(data)
+
+def download_excel(request):
+    if request.user.is_authenticated():
+        headers = ('Employee', 'Designation', 'From Date', 'Till Date', 'Purpose', 'Noted By', 'Approved By', 'Approval Status')
+        data = []
+        data = tablib.Dataset(*data, headers=headers)
+        user_designation = request.user.designation
+        user_department = request.user.department
+        user_station = request.user.power_station
+        if user_designation == 'CE':
+            dept_leaves = Leave.objects.filter(
+                employee__power_station=user_station).order_by('-pk')
+        elif user_designation == 'SE':
+            dept_leaves = Leave.objects.filter(employee__power_station=user_station).exclude(
+                employee__power_station=user_station, employee__designation="CE").exclude(employee__designation="SE").order_by('-pk')
+        elif user_designation == 'XEN':
+            dept_leaves = Leave.objects.filter(employee__power_station=user_station).exclude(
+                employee__designation="CE").exclude(employee__designation="SE").exclude(employee__designation="XEN").order_by('-pk')
+        elif user_designation == 'AEE':
+            dept_leaves = Leave.objects.filter(employee__power_station=user_station).exclude(employee__designation="CE").exclude(
+                employee__designation="SE").exclude(employee__designation="XEN").exclude(employee__designation="AEE").order_by('-pk')
+        for leave in dept_leaves:
+            approval_val = 'Not approved'
+            if leave.approval == True:
+                approve_val = 'approved'
+            if leave.approval == False and leave.sanctioned_by is None:
+                approval_val = 'Not yet approved'
+            data.append((leave.employee.get_full_name(), leave.employee.designation, leave.from_date.strftime('%m/%d/%Y'), leave.to_date.strftime('%m/%d/%Y'), leave.purpose, leave.noted_to.get_full_name() + ' ' + leave.noted_to.designation, leave.noted_by.get_full_name() + ' ' + leave.noted_to.designation, approval_val))
+        response = HttpResponse(data.xls, content_type='application/vnd.ms-excel;charset=utf-8')
+        response['Content-Disposition'] = "attachment; filename=export.xls"
+        
+        return response

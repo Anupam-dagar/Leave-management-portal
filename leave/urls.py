@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^leaves/$', views.your_leaves, name='your_leaves'),
     url(r'^departmentleaves/$', views.department_leaves, name='department_leaves'),
     url(r'^api/changeapproval/$', views.change_approval, name='change_approval'),
+    url(r'^download/excel/$', views.download_excel, name='download_excel'),
 ]
 
